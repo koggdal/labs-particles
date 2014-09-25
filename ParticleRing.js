@@ -25,6 +25,8 @@ ParticleRing.prototype.createParticles = function(amount) {
   var minScale = 0.01;
   var maxScale = 0.3;
 
+  var rotationStep = 360 / this.particles.length;
+
   for (var i = 0; i < amount; i++) {
     particle = new Particle({
       scale: random.getFloat(minScale, maxScale),
@@ -32,7 +34,8 @@ ParticleRing.prototype.createParticles = function(amount) {
       minRadius: radius * minRadiusFactor,
       maxRadius: radius * maxRadiusFactor,
       minScale: minScale,
-      maxScale: maxScale
+      maxScale: maxScale,
+      angle: rotationStep * i
     });
     particle.hue = startHue;
 
@@ -41,27 +44,13 @@ ParticleRing.prototype.createParticles = function(amount) {
 };
 
 ParticleRing.prototype.render = function(context) {
-  context.save();
-
   context.globalCompositeOperation = 'lighter';
-  context.globalAlpha = 1;
 
-  var rotationStep = (360 / this.particles.length) * Math.PI / 180;
   var particles = this.particles;
-  var particle;
 
   for (var i = 0, l = particles.length; i < l; i++) {
-    particle = particles[i];
-
-    context.rotate(rotationStep);
-
-    context.save();
-    context.translate(0, -particle.radius);
-    particle.render(context);
-    context.restore();
+    particles[i].render(context);
   }
-
-  context.restore();
 };
 
 module.exports = ParticleRing;

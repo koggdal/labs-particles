@@ -18,11 +18,11 @@ Particle.initTextures(function() {
 });
 
 function create() {
-  rings.push(new ParticleRing(canvas.unit * 50, 150, 330));
-  rings.push(new ParticleRing(canvas.unit * 40, 120, 300));
-  rings.push(new ParticleRing(canvas.unit * 30, 90, 270));
-  rings.push(new ParticleRing(canvas.unit * 20, 60, 240));
-  rings.push(new ParticleRing(canvas.unit * 10, 30, 210));
+  rings.push(new ParticleRing(canvas.unit * 50, 200, 330));
+  rings.push(new ParticleRing(canvas.unit * 40, 150, 300));
+  rings.push(new ParticleRing(canvas.unit * 30, 120, 270));
+  rings.push(new ParticleRing(canvas.unit * 20, 100, 240));
+  rings.push(new ParticleRing(canvas.unit * 10, 50, 210));
 }
 
 function start() {

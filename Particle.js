@@ -23,7 +23,7 @@ function Particle(optOptions) {
   this.maxRadius = options.maxRadius || 1;
   this.minScale = options.minScale || 0;
   this.maxScale = options.maxScale || 1;
-  this.opacity = 1;
+  this.angle = options.angle || 0;
 
   this.scaleSpeed = random.getFloat(0.05, 0.1) / 100;
   this.radiusSpeed = random.getFloat(0.01, 0.5);
@@ -37,14 +37,8 @@ function Particle(optOptions) {
 }
 
 Particle.prototype.tick = function() {
-  this.scale = this.calculateScale() + random.getFloat(-0.01, 0.01);
+  this.scale = Math.min(1, this.calculateScale() + random.getFloat(-0.01, 0.01));
   this.radius = this.calculateRadius();
-
-  if (loop.frame % (random.getInt(50, 2000)) === 0) {
-    this.opacity = 0.5;
-  } else {
-    this.opacity = 1;
-  }
 };
 
 Particle.prototype.calculateScale = function() {
@@ -77,11 +71,25 @@ Particle.prototype.render = function(context) {
   var width = textureWidth * this.scale;
   var height = textureHeight * this.scale;
 
+  var angle = (this.angle % 90) * Math.PI / 180;
+
+  var quadrant = Math.ceil(this.angle / 90);
+  var sin = Math.sin(angle) * this.radius;
+  var cos = Math.cos(angle) * this.radius;
+
+  var x = (quadrant === 1 || quadrant === 3) ? sin : cos;
+  var y = (quadrant === 1 || quadrant === 3) ? cos : sin;
+
+  if (quadrant > 2) x *= -1;
+  if (quadrant === 1 || quadrant === 4) y *= -1;
+
+  // Adjust the texture to render center at the right position
+  x -= width / 2;
+  y -= height / 2;
+
   var texture = textures[this.hue];
   if (texture) {
-    context.globalAlpha = this.opacity;
-    context.drawImage(texture, -width / 2, -height / 2, width, height);
-    context.globalAlpha = 1;
+    context.drawImage(texture, x, y, width, height);
   }
 };
 

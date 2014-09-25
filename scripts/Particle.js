@@ -26,7 +26,7 @@ function Particle(optOptions) {
   this.angle = options.angle || 0;
 
   this.scaleSpeed = random.getFloat(0.05, 0.1) / 100;
-  this.radiusSpeed = random.getFloat(0.01, 0.5);
+  this.radiusSpeed = random.getFloat(0.001 * canvas.unit, 0.05 * canvas.unit);
   this.scaleDirection = Math.round(Math.random()) ? 1 : -1;
   this.radiusDirection = Math.round(Math.random()) ? 1 : -1;
 
@@ -37,7 +37,9 @@ function Particle(optOptions) {
 }
 
 Particle.prototype.tick = function() {
-  this.scale = Math.min(1, this.calculateScale() + random.getFloat(-0.01, 0.01));
+  var unit = canvas.unit;
+  var flickerOffset = random.getFloat(-0.002 * unit, 0.002 * unit);
+  this.scale = Math.min(1, this.calculateScale() + flickerOffset);
   this.radius = this.calculateRadius();
 };
 

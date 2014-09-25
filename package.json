@@ -2,7 +2,7 @@
   "name": "demo",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "scripts/index.js",
   "devDependencies": {
     "quickstart": "^1.1.0"
   },

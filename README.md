@@ -27,7 +27,7 @@ Build a compiler for the browser:
 quickstart --self > runner.js
 ```
 
-Buid the whole project:
+Or build the whole project:
 
 ```
 quickstart --compress > runner.js

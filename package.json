@@ -1,5 +1,5 @@
 {
-  "name": "demo",
+  "name": "labs-particles",
   "version": "0.1.0",
   "description": "",
   "main": "scripts/index.js",
@@ -9,9 +9,5 @@
   "dependencies": {
     "prime": "~0.4.2",
     "raf": "~2.0.3"
-  },
-  "scripts": {
-    "prod": "quickstart > runner.js",
-    "dev": "quickstart --self > runner.js"
   }
 }

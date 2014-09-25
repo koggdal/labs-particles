@@ -39,7 +39,8 @@ function Particle(optOptions) {
 Particle.prototype.tick = function() {
   var unit = canvas.unit;
   var flickerOffset = random.getFloat(-0.002 * unit, 0.002 * unit);
-  this.scale = Math.min(1, this.calculateScale() + flickerOffset);
+  var newScale = this.calculateScale() + flickerOffset;
+  this.scale = Math.max(0, Math.min(1, newScale));
   this.radius = this.calculateRadius();
 };
 
